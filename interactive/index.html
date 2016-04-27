@@ -257,6 +257,113 @@ a.grey:hover {
 	opacity: .7;
 }
 
+/**, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}*/
+
+
+/*.button {
+  font-size: 1em;
+  padding: 10px;
+  color: #fff;
+  border: 2px solid #06D85F;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.button:hover {
+  background: #06D85F;
+}*/
+
+.popup h3 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+  text-align: center;
+}
+.popup .close {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  transition: all 0.2s;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  cursor:pointer;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+  text-align: center;
+}
+
+/*Let's make it appear when the page loads*/
+.overlay:target:before {
+    display: none;
+}
+.overlay:before {
+  content:"";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: 9;
+}
+.overlay .popup {
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: fixed;
+  top: 0;
+  left: 35%;
+  padding: 25px;
+  margin: 70px auto;
+  z-index: 10;
+  -webkit-transition: all 0.6s ease-in-out;
+  -moz-transition: all 0.6s ease-in-out;
+  transition: all 0.6s ease-in-out;
+}
+.overlay:target .popup {
+    top: -100%;
+    left: -100%;
+}
+
+.popup_button{
+text-align: center;
+margin-top: 30px;
+font-size: 24px;
+width: 60px;
+margin: 30px auto 0px;
+}
+
+.popup_button a{
+  border: 2px solid rgb(153, 0, 51);
+border-radius: 10px;
+padding: 0px 10px;
+color:rgb(153, 0, 51);
+}
+
+
+@media screen and (max-width: 768px){
+  /*.box{
+    width: 70%;
+  }*/
+  .overlay .popup{
+    width: 70%;
+    left: 15%;
+  }
+}
+
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="http://cdn.jsdelivr.net/underscorejs/1.5.2/underscore-min.js"></script>
@@ -555,9 +662,28 @@ a.grey:hover {
   };
 
 }));
+
+function closePopup() {
+  document.getElementById('myPopup').style.display = "none";
+  global.mode = "districtes";
+  themode(modes[0],100);
+};
+
 </script>
 </head>
+
 <body style="margin: 0px; padding: 0px; border: 0px; background: #ffffff">
+<div id="myPopup" class="overlay">
+  <div class="popup">
+    <h3>Tria la teva biblioteca</h3>
+    <a class="close" style="cursor:pointer" onclick="closePopup()">&times;</a>
+    <div class="content">
+      Clica un dels cercles i segueix la posició de la biblioteca a tot l'interactiu.
+    </div>
+    <div class="popup_button"><a style="cursor:pointer" onclick="closePopup()">OK</a></div>
+  </div>
+</div>
+
 <div id="tosmall" style="position: absolute; width: 100%; height: 1000px; background-color: #ffffff; z-Index:2; text-align: center; padding-top: 150px; padding-left: 80px; padding-right: 80px; display: none">
 	Your screen may not wide enough to show this graphic. We recommend 440 pixels screen width.  
 	<a href="#" onClick="$('#tosmall').fadeOut()">Show it anyway.</a>
@@ -592,19 +718,23 @@ You're using a dangerously antique browser. Please <a target="_blank" href="http
  	<a onClick="nextmode()" href="#" >Següent &raquo;</a>
 </span>
 <div id="infosign" style="display: inline-block; float: right">
-<font size="5">&#9432;</font>
+<font size="5"><b>&#9432;</b></font>
   <div id="legende"><p>Cada cercle representa una biblioteca. El color varia segons el districte a què pertany.</p>
 
   <p>Si poses el ratolí sobre el cercle, sabràs quina és. Si el cliques, seguiràs la posició de la biblioteca al llarg de l’interactiu. Dins de cada franja, la posició del cercle segons el seu valor és aproximada.</p>
 
-  <p style="font-size:80%">Aquest interactiu en <a href="http://d3js.org" target="_blank">d3.js</a> del <a href="https://twitter.com/btvdatalab" target="_blank"> BTVdatalab </a> està basat en el treball de <a href="http://bl.ocks.org/mbostock/1021953" target="_blank">Michael Bostock</a> i de <a href="https://apps.opendatacity.de/speedupeurope/0.3/" target="_blank">Martin Virtel/Speed Europe</a>, en codi dipositat a <a href="https://github.com/BTVdatalab/BCN2015biblioteques" target="_blank">Github</a>. Font de les dades: Biblioteques de Barcelona.</p> 
+  <p style="font-size:80%">Aquest interactiu en <a href="http://d3js.org" target="_blank">d3.js</a> del <a href="https://twitter.com/btvdatalab" target="_blank"> BTVdatalab </a> està basat en el treball de <a href="http://bl.ocks.org/mbostock/1021953" target="_blank">Michael Bostock</a> i de <a href="https://apps.opendatacity.de/speedupeurope/0.3/" target="_blank">Martin Virtel/Speed Europe</a>, en codi dipositat a <a href="https://github.com/BTVdatalab/BCN2015biblioteques" target="_blank">Github</a>. Font de les dades: <a href="http://www.barcelona.cat/biblioteques" target="_blank">Biblioteques de Barcelona.</a>  </p> 
   
   </div>
 </div>
 
 </div>
 <div id="icones" style="position: absolute;display: inline-block;margin-top:25px;margin-left:10px">
-  <a href="http://www.btv.cat/" style="background-color: #ffffff;" target="_blank"><img src="BTV_Data_LAB_logo_v2.png" style=" width:70px"></a>
+  <a href="http://www.btv.cat/" style="background-color: #ffffff;" target="_blank"><img src="btv.png" style=" width:30px"></a>
+  
+</div>
+<div id="icones" style="position: absolute;display: inline-block;margin-top:25px;margin-left:40px">
+   <a href="https://twitter.com/btvdatalab" style="background-color: #ffffff;" target="_blank"><img src="datalab.png" style=" width:30px;padding-left: 10px"></a>
 </div>
 <div id="frame" style="max-width: 800px; width: 100%; height: 350px; position: relative; top: 104px;" ></div>
 </div>
