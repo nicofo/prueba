@@ -1,0 +1,273 @@
+ @import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,700);
+
+
+ #map{
+       width: 100%;
+       height: 100%;
+        background:white;
+    }
+      
+      body{
+        margin:0px;   
+          height:100%;
+          width:100%
+      }
+      
+      html{
+          margin:0px;   
+          height:100%;
+          width:100%
+          
+      }
+
+.leaflet-control-layers{
+          top: 10px;
+          border-radius:0px;
+          width:60px;   
+          left:10px;    
+      }
+      
+.leaflet-control-zoom leaflet-bar leaflet-control{
+          border-radius:0px;
+      }
+
+#down{
+          position:absolute;
+          bottom:10px;
+          left:10px;
+          background:white;
+          box-shadow: 0px 0px 4px gray;
+          /*border:1px gray solid;*/
+          margin:white;
+          width:376px;
+          font-family: "sans-serif", "arial";
+          font-size:12px;
+          padding:5px;
+      }
+
+#down a{
+          text-decoration:none;
+          color:black;
+          display:block;
+          
+      }
+
+.rc{
+          width:13px;
+          margin-right:5px;    
+      }
+
+
+
+#menu {
+
+    z-index: 1;
+    position: absolute;
+    max-width: 100%;
+    right: 0px;
+}
+
+.menu-container{
+    position: relative;
+    z-index: 1111;
+    margin: 10px;
+    width: auto;
+    padding: 20px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    background-color: #000;
+}
+
+#timeline {
+  padding: 10px;
+  position:absolute;
+  z-index:1;
+  background-color:black;
+  margin:10px;
+  left: 0px;
+  bottom: 15px;
+  width:50%;
+}
+
+h1{
+  font-family: 'Titillium Web', sans-serif; 
+  padding:10px 5px;
+  text-align:center;
+}
+
+#menu h1{
+  color: #000; 
+  background-color:#fff;
+  margin-bottom:15px !important;
+}
+
+#expand_bar h1{
+  color: #fff; 
+  
+}
+
+h2 {
+  font-family: 'Titillium Web', sans-serif; 
+  color: #fff;
+  font-size:32px;
+  margin:0;
+  font-weight:normal;
+}
+
+h1.title{
+  font-weight: 400;
+  font-size: 35px;
+  margin: 0px;
+  line-height: 1em;
+  
+}
+
+h1.subtitle{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 700;
+  color: #ccc;
+  font-size: 4em;
+  margin: 0px;
+  line-height: 1em;
+}
+
+.line{
+  border:1px solid white;
+  color:#fff;
+}
+.line_bold{
+  border:2px solid white;
+  color:#fff;
+}
+
+.counter{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 400;
+  color: #e23130;
+  font-size: 45px;
+  display:inline-table;
+}
+
+.plane{
+  fill: #fff;
+  width:80px;
+  float:left;
+}
+
+.morts_dia {
+  color:#e23130;
+  margin-left:10px;
+}
+
+.data{
+  float:left;
+  margin-right:10px;
+}
+
+
+
+.webdoc .leaflet-right{
+
+  left:0 !important;
+  right:auto !important;
+}
+
+
+
+ .leaflet-right .leaflet-control{
+  margin-top:0px !important;
+  padding:10px 0px !important;
+}
+
+.leaflet-right .leaflet-control{
+
+  margin-right:20px;
+}
+
+.leaflet-control-layers{
+  background-color:#000 !important;
+}
+
+.leaflet-control-layers-list{
+  color:#fff !important;
+}
+
+.leaflet-control-layers-toggle{
+  width:60px !important;
+}
+
+.leaflet-control-layers-expanded{
+  font-family: 'Titillium Web', sans-serif !important;
+  width:200px !important;
+  font-size:18px;
+}
+
+.leaflet-control-zoom a, .leaflet-control-zoom a:hover{
+  width:60px;
+  height:60px;
+  background-color:#000;
+  color:#fff;
+  line-height: 60px;
+  border-radius:0px !important;
+}
+
+
+
+#ButtonPlay{
+  float: left;
+  margin-left: -70px;
+  background-image: url("../img/bombardeigs_icons.png");
+  background-repeat: no-repeat;
+  width: 25px;
+  background-position: 0px -7px;
+  cursor: pointer;
+  height: 17px;
+}
+
+.timeline-container{
+position: absolute;
+width: 100%;
+bottom: 10px;
+}
+
+#timeline{
+position: relative;
+z-index: 1111;
+margin: 10px;
+width: auto;
+padding-left: 100px;
+box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+#expand_bar {
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  top: 10px;
+  background-color:#000;
+  padding: 0px 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  margin-left: 80px;
+}
+
+#expand_bar h1{
+  float: left;
+}
+
+.expand_button{
+      padding: 14px 13px;
+    margin-left: 10px;
+    background-image: url("../img/bombardeigs_icons.png");
+    background-position: -46px 0px;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+    width: 0px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+
+
