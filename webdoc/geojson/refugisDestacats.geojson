@@ -1,0 +1,157 @@
+var refugiDestacat ={
+    "type": "FeatureCollection",
+    "features": [
+    	{
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.13655860459541,
+                    41.4109624049381,
+                    0
+                ]
+            },
+            "properties": {
+                "Nom": "Antic consulat soviètic",
+                "popUpInfo": 'Antic consulat soviètic<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2015/09/el-bunquer-de-lantic-consolat-sovietic.html">Més informació.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                	2.165907,
+                    41.401935,
+                    0
+                ]
+            },
+            "properties": {
+                "Nom": "Fabrica Elizalde",
+                "popUpInfo": 'Fabrica Elizalde<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2015/01/el-refugi-antiaeri-de-la-fabrica.html">Més informació.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                	2.165907,
+                    41.401935,
+                    0
+                ]
+            },
+            "properties": {
+                "Nom": "Societat Cultural i Esportiva La Lira",
+                "popUpInfo": 'Societat Cultural i Esportiva La Lira<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2012/09/refugi-antiaeri-de-la-societat-coral-la.html">Més informació.</a><br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2014/11/es-recupera-amb-tot-lexplendor-el.html">Reforma.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                	2.141190,
+                	41.436880, 
+                    0
+                ]
+            },
+            "properties": {
+                "Nom": "El Palau de les Heures",
+                "popUpInfo": 'El Palau de les Heures<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2014/07/objectiu-bombardejar-el-palau-de-les.html">Més informació.</a>'
+			}            
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.1426731527831,
+                    41.3854675802313,
+                    0
+                ]
+            },
+            "properties": {
+                "NOM": "REFUGI ANTIAERI 221",
+                "popUpInfo": 'REFUGI ANTIAERI 221<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2012/11/el-refugi-antiaeri-221-bernat-metge.html">Més informació.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                	2.173111,
+                    41.395008, 
+                    0
+                ]
+            },
+            "properties": {
+                "NOM": "Palauet de Santa Isabel",
+                "popUpInfo": 'Palauet de Santa Isabel<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2012/10/el-refugi-antiaeri-del-palauet-de-santa.html">Més informació.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.15583694080038,
+                    41.4039644653998,
+                    0
+                ]
+            },
+            "properties": {
+                "NOM": "REFUGI ANTIAERI 232(Pl Diamant)",
+                "popUpInfo": 'REFUGI ANTIAERI 232(Pl Diamant)<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2012/09/el-refugi-antiaeri-de-la-placa-del.html">Més informació.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                	2.174690,
+                    41.418304,
+                    0
+                ]
+            },
+            "properties": {
+                "NOM": "REFUGI 312-3(Mas Guinardó)",
+                "popUpInfo": 'REFUGI 312-3(Mas Guinardó)<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2012/09/el-refugi-antiaeri-del-mas-guinardo.html">Més informació.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.17553551185924,
+                    41.3948002639511,
+                    0
+                ]
+            },
+            "properties": {
+                "NOM": "REFUGI ANTIAERI 41",
+                "popUpInfo": 'REFUGI ANTIAERI 41<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2012/03/el-refugi-antiaeri-de-la-placa-tetuan.html">Més informació.</a>'
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.16569618342233,
+                    41.4339948670533,
+                    0
+                ]
+            },
+            "properties": {
+                "NOM": "REFUGI ANTIAERI 647",
+                "popUpInfo": 'REFUGI ANTIAERI 647<br><a href="http://refugisantiaerisdebarcelona.blogspot.com.es/2012/01/el-refugi-antiaeri-de-les-cases-barates.html">Més informació.</a>'
+            }
+        },
+
+
+    ]
+};

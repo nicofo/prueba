@@ -30,6 +30,12 @@
 .leaflet-control-zoom leaflet-bar leaflet-control{
           border-radius:0px;
       }
+.custom .leaflet-popup-tip,
+.custom .leaflet-popup-content-wrapper {
+    background: #000000;
+    color: #ffffff; 
+    border-radius: 0px;
+}
 
 #down{
           position:absolute;

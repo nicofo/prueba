@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mapa 1</title>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+  
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+  <script src="http://popcornjs.org/code/dist/popcorn-complete.min.js"></script>
+  <script src="leaflet.bouncemarker-master/bouncemarker.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="aishek-jquery-animateNumber-5f436e7/jquery.animateNumber.min.js"></script>
+
+  <script src="javascript/refugis.js" type="text/javascript"></script>
+  <script src="javascript/bombesMultiTotes.js" type="text/javascript"></script>
+  <script src="javascript/bombesMulti.js" type="text/javascript"></script>
+
+  <script src="javascript/retallBcn.js" type="text/javascript"></script>
+  <script>
+  window.totesBombes= [dia1937213, dia1937529, dia1937101, dia193811, dia1938125, dia1938130, dia193835, dia1938317A, dia1938317B, dia1938318, dia193864, dia1938719, dia1938819, dia1938924, dia1938104, dia19381021, dia19381231, dia1939121, dia1939124];
+    $(document).ready(
+
+      function () {
+
+      
+
+
+      window.map = L.map('map', {
+          attributionControl:false,
+          zoomControl: false
+        }).setView([41.386910, 2.193483], 13);//Per possar la orientacio inicial
+
+
+      // Disable drag and zoom handlers.
+      map.dragging.disable();
+      map.touchZoom.disable();
+      map.doubleClickZoom.disable();
+      map.scrollWheelZoom.disable();
+      map.keyboard.disable();
+
+      // Disable tap handler, if present.
+      if (map.tap) map.tap.disable();
+      var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+      });
+
+      var martorell =L.tileLayer('http://www.300000kms.net/_btv/martorell/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        minZoom:12,
+        tms: false,
+        attribution: '<a target="_blank" href="http://www.300000kms.net">300.000Km/s</a>'
+      });//carrega de papa
+      var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      });
+      var baseMaps = {
+        "Antic": martorell,
+        "Actual Mapa": OpenStreetMap_BlackAndWhite,
+        "Actual Satel·lit": Esri_WorldImagery
+      };
+      
+      // Tallat------------------------
+      L.Mask = L.Polygon.extend({
+          options: {
+          stroke: false,
+          color: '#DDD',
+          fillOpacity: 1,
+          clickable: false,
+
+          outerBounds: new L.LatLngBounds([-90, -120], [90, 120])
+        },
+
+        initialize: function (latLngs, options) {
+              
+          var outerBoundsLatLngs = [
+            this.options.outerBounds.getSouthWest(),
+            this.options.outerBounds.getNorthWest(),
+            this.options.outerBounds.getNorthEast(),
+            this.options.outerBounds.getSouthEast()
+          ];
+              L.Polygon.prototype.initialize.call(this, [outerBoundsLatLngs, latLngs], options);  
+        },
+
+      });
+      L.mask = function (latLngs, options) {
+        return new L.Mask(latLngs, options);
+      };
+
+      var coordinates = bcnRetall .features[0].geometry.coordinates[0];
+      var latLngs = [];
+      for (i=0; i<coordinates.length; i++) {
+          latLngs.push(new L.LatLng(coordinates[i][1], coordinates[i][0]));
+      }
+      window.maskRetall=L.mask(latLngs);
+
+      map.on('baselayerchange', function(e) {
+        if (e.name === "Antic") {
+          maskRetall.addTo(map);
+        }else{
+          map.removeLayer(maskRetall);
+        }
+      });
+
+      //-------------------------------
+
+      L.control.scale().addTo(map);
+      maskRetall.addTo(map);
+      
+
+    //A���adimos las capas de OpenStreetMap y Google al mapa
+
+      map.addLayer(martorell, Esri_WorldImagery);
+       //Crar icona a partir d'una foto
+      window.bombIcon = L.icon({
+        iconUrl: 'img/bomb.png',
+        iconSize: [20, 30],
+        iconAnchor: [20, 30],
+        popupAnchor: [0, -28]
+      });
+      window.expIcon = L.icon({
+        iconUrl: 'img/explosion.png',
+        iconSize: [20, 30],
+        iconAnchor: [20, 30],
+        popupAnchor: [0, -28]
+      });
+      window.holeBombIcon = L.icon({
+        iconUrl: 'img/hole.png',
+        iconSize: [20, 20],
+        iconAnchor: [20, 20],
+        popupAnchor: [0, -28]
+      });
+        
+
+      function onEachFeature(feature, layer) {
+        var popupContent = "<p>I started out as a GeoJSON " +
+            feature.geometry.type + ", but now I'm a Leaflet vector!</p>";
+
+        if (feature.properties && feature.properties.popupContent) {
+          popupContent += feature.properties.popupContent;
+        }
+
+        layer.bindPopup(popupContent);
+      }
+      window.assetLayerGroup = L.layerGroup().addTo(map);
+      window.foratLayerGroup = L.layerGroup().addTo(map);
+
+      
+      L.control.layers(baseMaps).addTo(map);
+      
+    
+     
+
+
+  });
+      window.totalMorts=0;
+      function onEachFeature(feature, layer) {
+        mortsActuals =feature.properties.morts;
+        dataActual = feature.properties.data;
+        totalMorts =feature.properties.morts_totals;
+        if (feature.properties && feature.properties.popupContent) {
+          popupContent += feature.properties.popupContent;
+        }
+
+       //layer.bindPopup(popupContent);
+      }
+      function onEachFeatureBomb(feature, layer) {
+        var popupContent = "<p>Data: " +feature.properties.data + " <br>Morts: "+feature.properties.morts+"</p>";
+        if (feature.properties && feature.properties.popupContent) {
+          popupContent += feature.properties.popupContent;
+        }
+
+       layer.bindPopup(popupContent);
+      }
+      
+      function imprimir(diaBomb, lat, lon, zoom){
+        assetLayerGroup.clearLayers();
+        foratLayerGroup.clearLayers();
+        map.setView([posicioEscriptori[diaBomb][0],posicioEscriptori[diaBomb][1]], posicioEscriptori[diaBomb][2]);
+        for(var i=0; i<diaBomb; i++){
+          var refuguis = L.geoJson(totesBombes[i], {
+
+            pointToLayer: function (feature, latlng) {
+              var markerBombs= L.marker(latlng, {
+                icon: holeBombIcon
+                
+
+              });
+              return markerBombs;
+            },
+            onEachFeature: onEachFeature
+
+          }).addTo(foratLayerGroup);
+        }
+
+        //dadesAqui=JSON.parse(diaBomb);
+        window.mortsActuals;
+        window.dataActual;
+        setTimeout(function() {
+
+          
+          
+          
+          
+          var coorsLayer = L.geoJson(totesBombes[diaBomb], {
+
+            pointToLayer: function (feature, latlng) {
+              var markerBombs= L.marker(latlng, {
+                icon: bombIcon,
+                bounceOnAdd: true,
+                bounceOnAddOptions: {duration: 1600, height: 200}
+                
+
+              });
+              return markerBombs;
+            },
+            onEachFeature: onEachFeature
+
+          }).addTo(assetLayerGroup);
+
+          document.getElementById("dataAct").innerHTML = dataActual;
+          document.getElementById("mort_dia").innerHTML = '(<span id="morts">0 </span>)';
+          //document.getElementById("morts").innerHTML = mortsActuals;
+          //if(mortsActuals === "sense pre")
+          //totalMorts= Number(totalMorts) + Number(mortsActuals);
+          //document.getElementById("numTotal").innerHTML =totalMorts;
+
+          $('#morts').animateNumber({ number: mortsActuals });
+          setTimeout(function() {
+            coorsLayer
+            assetLayerGroup.clearLayers();
+            var coorsLayerExp = L.geoJson(totesBombes[diaBomb], {
+
+            pointToLayer: function (feature, latlng) {
+              var markerBombs= L.marker(latlng, {
+                icon: expIcon
+                
+
+              });
+              return markerBombs;
+            },
+            onEachFeature: onEachFeature
+
+          }).addTo(assetLayerGroup);
+            assetLayerGroup.removeLayer(coorsLayer);
+            
+            $('#total_morts').animateNumber({ number: totalMorts });
+          }, 1600);
+        }, 1500);
+        
+
+      }
+      
+      function simplificat(popTime, startTime, endTime, diaBomb, lat, lon, zoom){
+        popTime.code({
+            start: startTime,
+            end: endTime,
+            onStart: function() {
+
+              var pos=(startTime - iniciFixe)/tempsEntre + 1;
+              $( "#slider" ).slider( "value", pos );
+              imprimir(diaBomb, lat,lon, zoom);
+              
+            }
+          });
+
+      }
+      function iniciVideo(popTime, endTime){
+        popTime.code({
+            start: 0,
+            end: endTime,
+            onStart: function() {
+
+              $( "#slider" ).slider( "value", 0 );
+              assetLayerGroup.clearLayers();
+              foratLayerGroup.clearLayers();
+              document.getElementById("mort_dia").innerHTML = '(<span id="morts">0 </span>)';
+              document.getElementById("total_morts").innerHTML = 0;
+              document.getElementById("dataAct").innerHTML ="19 de Gener de 1936";
+              map.setView([41.386910, 2.193483], 13);
+            }
+          });
+
+      }
+      function finalVideo(popTime, startTime, endTime){
+        popTime.code({
+            start: startTime,
+            end: endTime,
+            onStart: function() {
+
+              $( "#slider" ).slider( "value", 20 );
+              assetLayerGroup.clearLayers();
+              foratLayerGroup.clearLayers();
+              for(var i=0; i<19; i++){
+                var refuguis = L.geoJson(totesBombes[i], {
+
+                  pointToLayer: function (feature, latlng) {
+                    var markerBombs= L.marker(latlng, {
+                      icon: holeBombIcon
+                      
+
+                    });
+                    return markerBombs;
+                  },
+                  onEachFeature: onEachFeature
+
+                }).addTo(foratLayerGroup);
+              }
+            document.getElementById("mort_dia").innerHTML = " ";
+            document.getElementById("dataAct").innerHTML =" ";
+            totalMorts = 2404;
+            $('#total_morts').animateNumber({ number: totalMorts });
+            map.setView([41.386910, 2.193483], 13);
+
+            }
+          });
+
+      }
+
+      // ensure the web page (DOM) has loaded
+      document.addEventListener("DOMContentLoaded", function () {
+           // Create a popcorn instance by calling the Youtube player plugin
+        var videoPop = Popcorn( "#ourvideo" );
+        $( "#slider" ).slider({
+          max:20,
+          min: 0,
+          stop: function( event, ui ) {
+            var calcul=iniciFixe+ (ui.value - 1) * tempsEntre;
+            videoPop.currentTime(calcul);
+
+          }
+
+        });
+        videoPop.pause();
+        window.butPause= true;
+        document.getElementById("ButtonPlay").innerHTML = "";
+        posicioEscriptori=[[41.399904, 2.174064, 15], [41.396346, 2.200537, 13], [41.379603, 2.190318, 15], [41.382750, 2.181187, 15],[41.388804, 2.169091, 14], [41.384248, 2.177374, 16], [41.384201, 2.192756, 15], [41.382414, 2.186571, 14], [41.387501, 2.174142, 14], [41.380807, 2.163395, 15], [41.376773, 2.195088, 13], [41.384428, 2.215000, 13], [41.382899, 2.186504, 15], [41.373616, 2.180791, 15], [41.364195, 2.189822, 15], [41.382430, 2.185886, 15], [41.381634, 2.175529, 14], [41.370943, 2.189986, 14], [41.380604, 2.194229, 14]]
+        //videoPop.play();
+        window.iniciFixe= 6.8;
+        var inici= iniciFixe;
+        window.tempsEntre=7;
+        var final=inici + tempsEntre -0.5;
+        iniciVideo(videoPop, iniciFixe- 0.1);
+        //TODO INICIAL POPUP
+        simplificat(videoPop,inici, final, 0, 41.401282, 2.179085, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 1, 41.381260, 2.182768, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 2, 41.384122, 2.194089, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 3, 41.382750, 2.181187, 15);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 4, 41.374999, 2.169065, 15);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 5, 41.386049, 2.184796, 16);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 6, 41.386077, 2.191147, 15);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        //17-3-1938
+        simplificat(videoPop,inici, final, 7,  41.382615, 2.171243, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 8,  41.382615, 2.171243, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 9,  41.382615, 2.171243, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 10, 41.362932, 2.208380, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 11, 41.387446, 2.206292, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 12,  41.387446, 2.206292, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 13,  41.364195, 2.189822, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 14,  41.364195, 2.189822, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 15,  41.382430, 2.185886, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 16,  41.382615, 2.171243, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 17,   41.364195, 2.189822, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        simplificat(videoPop,inici, final, 18,  41.386167, 2.194698, 14);
+        inici=inici + tempsEntre;
+        final= inici + tempsEntre -0.1;
+        finalVideo(videoPop,inici, final+inici);
+        //TODO FINAL POPCORN
+        window.videoProperties =videoPop;
+        
+
+
+        
+      }, false);
+      function funcButPlay(){
+        if(butPause){
+          videoProperties.play();
+          butPause= false;
+          //document.getElementById("ButtonPlay").innerHTML = "";
+          document.getElementById("ButtonPlay").style.backgroundPosition = "-22px -7px";
+        }else{
+          videoProperties.pause();
+          butPause= true;
+          //document.getElementById("ButtonPlay").innerHTML = "";
+          document.getElementById("ButtonPlay").style.backgroundPosition = "0px -7px";
+        }
+      }
+
+
+var w = window.innerWidth;
+console.log(w);
+
+function expandMenu(){
+  document.getElementById("menu").style.display = "block";
+  document.getElementById("expand_bar").style.display = "none";
+}
+
+function hideMenu(){
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("expand_bar").style.display = "block";
+}
+
+function responsive(){
+
+  if (w <1024){
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("expand_bar").style.display = "block";
+  }else{
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("expand_bar").style.display = "none";
+
+  }
+
+}
+
+
+
+
+
+
+    </script>
+
+</head>
+<body class="webdoc" onload= "responsive()">
+  <div id="expand_bar">
+  <h1 class="title">Bombardeigs <strong>BCN 1937/39</strong></h1>
+  <div class="expand_button" onclick="expandMenu()"></div>
+  </div>
+  <aside  id="menu">
+  <div class="menu-container">
+  <div onclick="hideMenu()"><h1 class="title">Bombardeigs <strong>BCN 1937/39</strong></h1></font>
+   </div>
+   <div><h2 class="data" id="dataAct">19 de Gener de 1936</h2><h2 class="morts_dia" id="mort_dia">(<span id="morts">0 </span>)</h2></div>
+   <hr class="line"></hr>
+
+  <div  class="counter"><span id="total_morts">0 </span> victimes</div>
+  <hr class="line"></hr>
+  <div style="text-align:center">
+  <video height="270" width="auto" id="ourvideo" >
+        <source src="bombesTmp.mp4" type="video/mp4">
+  </video>
+  </div>
+   <hr class="line"></hr>
+
+</div> 
+ </aside>
+  <div class="timeline-container">
+  <aside id="timeline">
+   <a onclick="funcButPlay()" id="ButtonPlay"></a> 
+  <div id="slider" ></div>
+   </aside>
+ </div>
+  <div style="position: relative;" id="map"></div>
+
+
+
+</body>
+    
+</html>
+

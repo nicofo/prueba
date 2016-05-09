@@ -1,24 +1,7 @@
 var refugi ={
     "type": "FeatureCollection",
     "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    2.13655860459541,
-                    41.4109624049381,
-                    0
-                ]
-            },
-            "properties": {
-                "name": "003/09",
-                "Codi": "003/09",
-                "Nom": "",
-                "Adreça": "Tibidabo, Avinguda. 8-18",
-                "Resultats": "Negatius. Estratigrafia no exhaurida"
-            }
-        },
+        
         {
             "type": "Feature",
             "geometry": {
@@ -33,6 +16,7 @@ var refugi ={
                 "name": "004/09",
                 "Codi": "004/09",
                 "Nom": "",
+                "popup" : "BLABLABLABLA",
                 "Adreça": "Banys Vells, Carrer. 6",
                 "Resultats": "Positius. Estratigrafia no exhaurida"
             }
@@ -2754,6 +2738,7 @@ var refugi ={
             "properties": {
                 "name": "REFUGI ANTIAERI R.0034",
                 "NOM": "REFUGI ANTIAERI R.0034",
+                "popup" : "BLABLABLABLA",
                 "Adreça": "Comte Borrell, Carrer. 236-244",
                 "Districte": "L'Eixample"
             }
@@ -2857,23 +2842,6 @@ var refugi ={
                 "name": "REFUGI ANTIAERI R.0040",
                 "NOM": "REFUGI ANTIAERI R.0040",
                 "Adreça": "Lepant, Carrer. 321-323",
-                "Districte": "L'Eixample"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    2.17553551185924,
-                    41.3948002639511,
-                    0
-                ]
-            },
-            "properties": {
-                "name": "REFUGI ANTIAERI R.0041",
-                "NOM": "REFUGI ANTIAERI R.0041",
-                "Adreça": "Tetuan, Plaça.",
                 "Districte": "L'Eixample"
             }
         },
@@ -5585,23 +5553,6 @@ var refugi ={
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    2.1426731527831,
-                    41.3854675802313,
-                    0
-                ]
-            },
-            "properties": {
-                "name": "REFUGI ANTIAERI R.0221",
-                "NOM": "REFUGI ANTIAERI R.0221",
-                "Adreça": "Josep Tarradellas, Avinguda.",
-                "Districte": "L'Eixample"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     2.16269488417633,
                     41.3732114395796,
                     0
@@ -5767,23 +5718,7 @@ var refugi ={
                 "Districte": "L'Eixample"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    2.15583694080038,
-                    41.4039644653998,
-                    0
-                ]
-            },
-            "properties": {
-                "name": "REFUGI ANTIAERI R.0232",
-                "NOM": "REFUGI ANTIAERI R.0232",
-                "Adreça": "Diamant, Plaça.",
-                "Districte": "Gràcia"
-            }
-        },
+        
         {
             "type": "Feature",
             "geometry": {
