@@ -1,0 +1,160 @@
+library(MASS)
+data(Boston)
+help(Boston)
+
+
+
+#### indus
+Amb aquest descriptor representem la proporció de terreny industrial per suburbi.
+
+Podem veure que tant la mitja com la mediana estan rondant $10$. Es ha dir, que de mitja s'utilitza en tots els suburbis el $10\%$ del terreny com terreny industiral. I que ningun barri arriva al $30\%$.
+
+summary(Boston$indus)
+boxplot(Boston$indus)
+hist(Boston$indus)
+
+
+
+
+
+#### chas
+
+Aquesta solament es una variable tonta amb la que registrar si hi passa el riu ($1$) o si no($0$).
+
+Veiem que hi ha una gran majoria per on no passa el riu, exactament un $471$ contra $35$ on si passa.
+
+summary(Boston$chas)
+table(Boston$chas)
+hist(Boston$chas)
+ 
+
+#### nox 
+
+Concentració de òxid nitrós a l'aire, en parts de 10 millons.
+
+Veiem que la mitja esta en $0.55$. Amb el diagrama de caixa veiem que la majoria esta concentrat entre $0.4 - 0.6$, pero veiem que hi ha zones amb una concentració més grns, fins a $0.87$.
+
+summary(Boston$nox)
+boxplot(Boston$nox)
+hist(Boston$nox)
+
+
+
+#### rm
+
+Mitja d'habitacions per vivenda.
+
+Veiem, gràcies al histograma i al diagrama de caixa, que aquestes dades segueixen una distibució normal, on la mitja és $6.28$.
+
+summary(Boston$rm)
+boxplot(Boston$rm)
+hist(Boston$rm)
+
+
+
+#### age
+# TODO Entender de que va.
+
+summary(Boston$age)
+boxplot(Boston$age)
+hist(Boston$age)
+
+#### dis
+
+Mitjana ponderada de les distàncies a cinc centres d'ocupació de Boston.
+
+Veiem amb els gràfics que la majoria de les vivendes estan aprop de els centres, amb una mitja de $3.795$. Veiem que hi ha alguna que esta allunyada, com per exemple a $12.13$.
+
+summary(Boston$dis)
+boxplot(Boston$dis)
+hist(Boston$dis)
+
+
+#### rad
+
+Index d'accesibilitat a les autopistes de la periferia.
+
+Els resultats d'aquest descriptor son curiosos, ja que hi ha una concentració entre $1$ i $8$ que forma una distibució normal. Pero després veiem que poc més del $25\%$ esta concentrat en $24$.
+
+summary(Boston$rad)
+table(Boston$rad)
+boxplot(Boston$rad)
+hist(Boston$rad)
+
+
+#### tax
+
+Taxa al valor total de la propietat per cada $10,000\$$.
+
+La mediana es mate en uns $330$ amb una mitjana més desplaçada de $408$. 
+Més del $50\%$ es troba per sota de $400$, pero hi ha una concentració gran al voltant del 700.
+
+summary(Boston$tax)
+boxplot(Boston$tax)
+hist(Boston$tax)
+
+
+#### ptratio
+
+Nombre d'alumnes per profesor per suburbi.
+
+Segons eels resultat, de mitja, hi ha 18 alumnes per a cada professor.
+Encara que hi ha una gran concentració en $20$ alumnes.
+
+
+summary(Boston$ptratio)
+boxplot(Boston$ptratio)
+hist(Boston$ptratio)
+
+
+#### black
+Representa $1000 ( Bk − 0.63)^{2}\$, on Bk es la proporció de negres per suburbi.
+
+Veiem que més del $95%$ Esta concentrat ente $350$ i $400$. 
+
+summary(Boston$black)
+boxplot(Boston$black)
+hist(Boston$black)
+
+#### lstat
+
+# TODO
+
+
+summary(Boston$lstat)
+boxplot(Boston$lstat)
+hist(Boston$lstat)
+
+#### medv
+
+# TODO
+
+summary(Boston$medv)
+boxplot(Boston$medv)
+hist(Boston$medv)
+
+
+### Correlació entre variables
+
+round(cor(Boston),2) 
+plot(Boston)
+
+Veiem la correlació de les variables. Hi han variables amb una alta correlació com 
+age-nox, tax-nox, indus-nox, age- indus.
+Pel general veiem una gran correlació sempre amb nox, age i indus.
+
+# TODO En aquest dataset hi ha dues variables que poden ser 0. Quines són?
+
+
+##Mirem recta
+
+ls1<-lm(medv~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat, data=Boston)
+summary(ls1)
+
+
+
+
+
+
+
+
